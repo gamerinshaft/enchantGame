@@ -15,13 +15,98 @@
   Player = (function(_super) {
     __extends(Player, _super);
 
-    function Player() {
-      Player.__super__.constructor.call(this, 33, 32);
-      this.image = core.assets['./img/chara/miku.png'];
+    function Player(options) {
+      switch (options.chara) {
+        case "miku":
+          Player.__super__.constructor.call(this, 33, 32);
+          this.image = core.assets['./img/chara/miku.png'];
+          break;
+        case "honoka":
+          Player.__super__.constructor.call(this, 31, 37);
+          this.image = core.assets['./img/chara/honoka.png'];
+          break;
+        case "kotori":
+          Player.__super__.constructor.call(this, 32, 37);
+          this.image = core.assets['./img/chara/kotori.png'];
+          break;
+        case "umi":
+          Player.__super__.constructor.call(this, 32, 37);
+          this.image = core.assets['./img/chara/umi.png'];
+          break;
+        case "eri":
+          Player.__super__.constructor.call(this, 37, 37);
+          this.image = core.assets['./img/chara/eri.png'];
+          break;
+        case "nozomi":
+          Player.__super__.constructor.call(this, 37, 37);
+          this.image = core.assets['./img/chara/nozomi.png'];
+          break;
+        case "nico":
+          Player.__super__.constructor.call(this, 37, 37);
+          this.image = core.assets['./img/chara/nico.png'];
+          break;
+        case "rin":
+          Player.__super__.constructor.call(this, 29, 36);
+          this.image = core.assets['./img/chara/rin.png'];
+          break;
+        case "hanayo":
+          Player.__super__.constructor.call(this, 29, 36);
+          this.image = core.assets['./img/chara/hanayo.png'];
+          break;
+        case "kayo":
+          Player.__super__.constructor.call(this, 29, 36);
+          this.image = core.assets['./img/chara/kayo.png'];
+          break;
+        case "maki":
+          Player.__super__.constructor.call(this, 29, 36);
+          this.image = core.assets['./img/chara/maki.png'];
+          break;
+      }
       this.frame = 0;
+      this.tick = 0;
       this.x = 120;
       this.y = 120;
+      this.state = '';
     }
+
+    Player.prototype.onenterframe = function() {
+      if (core.input.down) {
+        this.state = 'down';
+        this.frame = this.tick % 2 * 2;
+        this.tick++;
+        return this.y += 4;
+      } else if (core.input.left) {
+        this.state = 'left';
+        this.frame = this.tick % 2 * 2 + 3;
+        this.tick++;
+        return this.x -= 4;
+      } else if (core.input.right) {
+        this.state = 'right';
+        this.frame = this.tick % 2 * 2 + 6;
+        this.tick++;
+        return this.x += 4;
+      } else if (core.input.up) {
+        this.state = 'up';
+        this.frame = this.tick % 2 * 2 + 9;
+        this.tick++;
+        return this.y -= 4;
+      } else {
+        switch (this.state) {
+          case 'down':
+            this.frame = 1;
+            break;
+          case 'left':
+            this.frame = 4;
+            break;
+          case 'right':
+            this.frame = 7;
+            break;
+          case 'up':
+            this.frame = 10;
+            break;
+        }
+      }
+    };
 
     return Player;
 
@@ -30,12 +115,24 @@
   window.onload = function() {
     var assets;
     core = new Core(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-    core.fps = 10;
+    core.fps = 15;
     assets = [];
     assets.push('./img/chara/miku.png');
+    assets.push('./img/chara/honoka.png');
+    assets.push('./img/chara/kotori.png');
+    assets.push('./img/chara/umi.png');
+    assets.push('./img/chara/eri.png');
+    assets.push('./img/chara/nozomi.png');
+    assets.push('./img/chara/nico.png');
+    assets.push('./img/chara/rin.png');
+    assets.push('./img/chara/hanayo.png');
+    assets.push('./img/chara/kayo.png');
+    assets.push('./img/chara/maki.png');
     core.preload(assets);
     core.onload = function() {
-      this.player = new Player();
+      this.player = new Player({
+        chara: "miku"
+      });
       return core.rootScene.addChild(this.player);
     };
     return core.start();
