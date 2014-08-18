@@ -1,4 +1,4 @@
-DISPLAY_WIDTH = 320
+DISPLAY_WIDTH = 304
 DISPLAY_HEIGHT = 320
 enchant()
 core = {}
@@ -192,7 +192,7 @@ class Player extends Sprite
 
 
 
-class rootMap extends Map
+class RootMap extends Map
   constructor: ->
     super(16,16)
     @image = core.assets['./img/map/map1.png']
@@ -249,8 +249,6 @@ class rootMap extends Map
 
 
 
-
-
 checkPosition = (x, y)->
   console.log "x=" + x + ",y=" + y
 
@@ -280,8 +278,12 @@ window.onload = ->
 
   core.onload = ->
     @player = new Player(chara: "reimu")
-    @map = new rootMap()
+    @map = new RootMap()
+    @pad = new Pad()
+    @pad.x = 192
+    @pad.y = 210
     map = @map
     core.rootScene.addChild(map)
     core.rootScene.addChild(@player)
+    core.rootScene.addChild(@pad)
   core.start()
