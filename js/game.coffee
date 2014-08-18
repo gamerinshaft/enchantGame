@@ -5,14 +5,6 @@ core = {}
 charas = []
 
 
-player = {}
-
-
-
-
-
-
-
 
 
 
@@ -23,6 +15,7 @@ class Character extends Sprite
     @tohou = ["marisa", "reimu", "sanae", "sakuya"]
     @chara = options.chara
     @map = options.map
+    @player = options.player
     switch @chara
       when "miku"
         super(33,32)
@@ -107,7 +100,7 @@ class Character extends Sprite
       @tick++
       @y += 4
       # checkPosition(@x, @y)
-      if @map.hitTest( @x + 15 , @y + 32) or @intersect(player)
+      if @map.hitTest( @x + 15 , @y + 32) or @intersect(@player)
         @y -= 4
     else if @rand == 1
       if @isTohou()
@@ -118,7 +111,7 @@ class Character extends Sprite
       @tick++
       @x -= 4
       # checkPosition(@x, @y)
-      if @map.hitTest( @x + 4, @y + 29) or @intersect(player)
+      if @map.hitTest( @x + 4, @y + 29) or @intersect(@player)
         @x += 4
     else if @rand == 2
       if @isTohou()
@@ -129,11 +122,11 @@ class Character extends Sprite
       @tick++
       @x += 4
       # checkPosition(@x, @y)
-      if @map.hitTest( @x + 20 , @y + 29) or @intersect(player)
+      if @map.hitTest( @x + 20 , @y + 29) or @intersect(@player)
         @x -= 4
     else if @rand == 3
       @y -= 4
-      if @map.hitTest( @x + 15, @y + 25) or @intersect(player)
+      if @map.hitTest( @x + 15, @y + 25) or @intersect(@player)
         @y += 4
       @state = 'up'
       @frame = @tick % 2 * 2 + 9
@@ -420,12 +413,13 @@ window.onload = ->
   core.onload = ->
     @map = new RootMap()
     @player = new Player(chara: "reimu", map: @map)
-    @chara1 = new Character(chara: "sanae", x: "4", y: "5", frame:"0", map: @map)
-    @chara2 = new Character(chara: "sakuya", x: "5", y: "8", frame:"0", map: @map)
-    @chara3 = new Character(chara: "marisa", x: "15", y: "15", frame:"0", map: @map)
+    @chara1 = new Character(chara: "sanae", x: "4", y: "5", frame:"0", map: @map, player: @player)
+    @chara2 = new Character(chara: "sakuya", x: "5", y: "8", frame:"0", map: @map, player: @player)
+    @chara3 = new Character(chara: "marisa", x: "15", y: "15", frame:"0", map: @map, player: @player)
     charas.push(@chara1)
     charas.push(@chara2)
     charas.push(@chara3)
+
 
     player = @player
     @pad = new Pad()
