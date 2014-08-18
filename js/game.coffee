@@ -79,7 +79,7 @@ window.onload = ->
   core.onload = ->
     @gameScene = new GameScene()
     @pushScene(@gameScene)
-  core.debug()
+  core.start()
 
 
 # ------------------------------------------------------------------------

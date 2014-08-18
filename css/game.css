@@ -8,6 +8,8 @@ body{
   background-color: black;
 }
 #enchant-stage{
+  position: relative;
+  bottom: 0;
   margin-left: auto;
   margin-right: auto;
   width: 100%;

@@ -129,7 +129,7 @@
       this.gameScene = new GameScene();
       return this.pushScene(this.gameScene);
     };
-    return core.debug();
+    return core.start();
   };
 
   checkPosition = function(x, y) {
